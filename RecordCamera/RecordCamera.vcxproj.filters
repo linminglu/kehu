@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{cce5d1d2-da99-471b-ae6d-4f2df4be2f0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface\InterfaceBaseClass">
+      <UniqueIdentifier>{70dcbfdd-db4f-4d2e-8114-d4b82558c636}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface\DDShow">
+      <UniqueIdentifier>{28a1e715-5dc7-4e6d-b429-824e0de109e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface\ENCode">
+      <UniqueIdentifier>{f0ea48ec-0cc2-432b-8c1f-b03470f09c29}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RecordCamera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="RecordCameraDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FCGlobalConfig.h">
+      <Filter>Interface\InterfaceBaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="FCLockMutex.h">
+      <Filter>Interface\InterfaceBaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="FConditionVariable.h">
+      <Filter>Interface\InterfaceBaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="FCSemaphore.h">
+      <Filter>Interface\InterfaceBaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="FCSimpleThread.h">
+      <Filter>Interface\InterfaceBaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="FDSCaptureDevice.h">
+      <Filter>Interface\DDShow</Filter>
+    </ClInclude>
+    <ClInclude Include="qedit.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FDSGrabberCallback.h">
+      <Filter>Interface\DDShow</Filter>
+    </ClInclude>
+    <ClInclude Include="FDSGraph.h">
+      <Filter>Interface\DDShow</Filter>
+    </ClInclude>
+    <ClInclude Include="FDSVideoCaptureDevice.h">
+      <Filter>Interface\DDShow</Filter>
+    </ClInclude>
+    <ClInclude Include="FDSVideoGraph.h">
+      <Filter>Interface\DDShow</Filter>
+    </ClInclude>
+    <ClInclude Include="FH264Encode.h">
+      <Filter>Interface\ENCode</Filter>
+    </ClInclude>
+    <ClInclude Include="FVideoEncoderThread.h">
+      <Filter>Interface\ENCode</Filter>
+    </ClInclude>
+    <ClInclude Include="FDSCaptureManager.h">
+      <Filter>Interface\DDShow</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="RecordCamera.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="RecordCameraDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FCLockMutex.cpp">
+      <Filter>Interface\InterfaceBaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="FConditionVariable.cpp">
+      <Filter>Interface\InterfaceBaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="FCSemaphore.cpp">
+      <Filter>Interface\InterfaceBaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="FCSimpleThread.cpp">
+      <Filter>Interface\InterfaceBaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="FDSCaptureDevice.cpp">
+      <Filter>Interface\DDShow</Filter>
+    </ClCompile>
+    <ClCompile Include="FDSGrabberCallback.cpp">
+      <Filter>Interface\DDShow</Filter>
+    </ClCompile>
+    <ClCompile Include="FDSGraph.cpp">
+      <Filter>Interface\DDShow</Filter>
+    </ClCompile>
+    <ClCompile Include="FDSVideoCaptureDevice.cpp">
+      <Filter>Interface\DDShow</Filter>
+    </ClCompile>
+    <ClCompile Include="FDSVideoGraph.cpp">
+      <Filter>Interface\DDShow</Filter>
+    </ClCompile>
+    <ClCompile Include="FH264Encode.cpp">
+      <Filter>Interface\ENCode</Filter>
+    </ClCompile>
+    <ClCompile Include="FVideoEncoderThread.cpp">
+      <Filter>Interface\ENCode</Filter>
+    </ClCompile>
+    <ClCompile Include="FDSCaptureManager.cpp">
+      <Filter>Interface\DDShow</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="RecordCamera.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\RecordCamera.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\RecordCamera.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
