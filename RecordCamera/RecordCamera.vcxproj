@@ -53,8 +53,9 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>./DirectshowInterface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SDLCheck>
+      </SDLCheck>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -109,6 +110,7 @@
     <ClInclude Include="FConditionVariable.h" />
     <ClInclude Include="FCSemaphore.h" />
     <ClInclude Include="FCSimpleThread.h" />
+    <ClInclude Include="FDCapture.h" />
     <ClInclude Include="FDSCaptureDevice.h" />
     <ClInclude Include="FDSCaptureManager.h" />
     <ClInclude Include="FDSGrabberCallback.h" />
@@ -129,6 +131,7 @@
     <ClCompile Include="FConditionVariable.cpp" />
     <ClCompile Include="FCSemaphore.cpp" />
     <ClCompile Include="FCSimpleThread.cpp" />
+    <ClCompile Include="FDCapture.cpp" />
     <ClCompile Include="FDSCaptureDevice.cpp" />
     <ClCompile Include="FDSCaptureManager.cpp" />
     <ClCompile Include="FDSGrabberCallback.cpp" />

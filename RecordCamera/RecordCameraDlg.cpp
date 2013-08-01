@@ -8,6 +8,7 @@
 #include "afxdialogex.h"
 #include "FDSGraph.h"
 #include <iostream>
+#include "FDCapture.h"
 using namespace std;
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -57,7 +58,7 @@ CRecordCameraDlg::CRecordCameraDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CRecordCameraDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-	ds_capture_ = new FDSCaptureManager();
+	ds_capture_ = new FDSCapture();
 }
 CRecordCameraDlg::~CRecordCameraDlg()
 {
@@ -120,14 +121,19 @@ BOOL CRecordCameraDlg::OnInitDialog()
 	FILE *pfile;
 	freopen_s(&pfile,"CONOUT$", "w+t", stdout);    // 申请写
 	// TODO: 在此添加额外的初始化代码
-	 std::map<CString, CString> v_devices = ds_capture_->DShowGraph()->VideoCapDevices();
-	 std::cout<<"camera count"<<v_devices.size()<<endl;
-	 for (map<CString, CString>::iterator iter=v_devices.begin( ); iter != v_devices.end( ); ++iter)
-	 {
-		 cout <<gCStringToString((*iter).first)<< "   " << gCStringToString((*iter).second )<< endl;
-		  this->m_vCamera.push_back((*iter).second);
-		  this->m_vCameraid.push_back((*iter).first);
-	 }
+
+	// 音视频设备
+
+	std::map<CString, CString> a_devices = ds_capture_->DShowGraph()->AudioCapDevices();
+	std::map<CString, CString> v_devices = ds_capture_->DShowGraph()->VideoCapDevices();
+
+	for (std::map<CString, CString>::iterator it = v_devices.begin();
+		it != v_devices.end(); ++it)
+	{
+		video_device_index_.push_back(it->first);
+	}
+	
+
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -184,16 +190,11 @@ HCURSOR CRecordCameraDlg::OnQueryDragIcon()
 
 void CRecordCameraDlg::OnBnClickedStartrecordone()
 {
-	// TODO: 在此添加控件通知处理程序代码
-	if(m_vCamera.size()>0)
-	{
 
 
-	CString video_device_id = this->m_vCameraid[0];
+CString video_device_id = video_device_index_[0];
 
-	
-
-	FDSVideoFormat video_fmt;
+	DSVideoFormat video_fmt;
 	video_fmt.width = 640;
 	video_fmt.height = 480;
 	video_fmt.fps = 10;
@@ -201,19 +202,15 @@ void CRecordCameraDlg::OnBnClickedStartrecordone()
 	CWnd *pWnd = GetDlgItem(IDC_STATICONE);
 	RECT rc;
 	pWnd->GetClientRect(&rc);
-	CString strDate;
-	CTime ttime = CTime::GetCurrentTime();
-	strDate.Format(_T("%d-%d-%d-%d-%d-%d"),ttime.GetYear(),ttime.GetMonth(),ttime.GetDay(),ttime.GetMinute(),ttime.GetMinute(),ttime.GetSecond());
-	CString audio_outname, video_outname;
-	video_outname=strDate;
 
-	cout<<"开始捕获"<<gCStringToString(video_device_id)<<endl;
+	CString video_outname(_T("11.h264"));
+	
 
-	ds_capture_->Create(m_vCameraid[0], video_fmt, video_outname);
-	ds_capture_->AdjustVideoWindow((OAHWND)pWnd->GetSafeHwnd(), rc.right, rc.bottom,video_device_id);
-	ds_capture_->StartVideo(video_device_id);
-	(CButton *)GetDlgItem(IDC_STARTRECORDONE)->EnableWindow(FALSE);
-	}
+	ds_capture_->Create(_T(""), video_device_id, video_fmt, _T(""), video_outname);
+	ds_capture_->AdjustVideoWindow((OAHWND)pWnd->GetSafeHwnd(), rc.right, rc.bottom);
+	ds_capture_->StartAudio();
+	ds_capture_->StartVideo();
+
 
 }
 
@@ -221,55 +218,52 @@ void CRecordCameraDlg::OnBnClickedStartrecordone()
 void CRecordCameraDlg::OnBnClickedStoprecordone()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	if(m_vCamera.size()>0)
-	{
-		ds_capture_->StopVideo(m_vCameraid[0]);
+
+		ds_capture_->StopVideo();
 		(CButton *)GetDlgItem(IDC_STARTRECORDONE)->EnableWindow(TRUE);
-	}
 }
 
 
 void CRecordCameraDlg::OnBnClickedStartrecordtwo()
 {
+	/*
 	// TODO: 在此添加控件通知处理程序代码
 	if(m_vCamera.size()>0)
 	{
-
-
 		CString video_device_id = this->m_vCameraid[1];
-
-
-
 		FDSVideoFormat video_fmt;
 		video_fmt.width = 640;
 		video_fmt.height = 480;
 		video_fmt.fps = 10;
 
-		CWnd *pWnd = GetDlgItem(IDC_STATICONE);
+		CWnd *pWnd = GetDlgItem(IDC_STATICTWO);
 		RECT rc;
 		pWnd->GetClientRect(&rc);
 		CString strDate;
 		CTime ttime = CTime::GetCurrentTime();
-		strDate.Format(_T("%d-%d-%d-%d-%d-%d"),ttime.GetYear(),ttime.GetMonth(),ttime.GetDay(),ttime.GetMinute(),ttime.GetMinute(),ttime.GetSecond());
-		CString audio_outname, video_outname;
+		strDate.Format(_T("2-%d-%d-%d-%d-%d-%d"),ttime.GetYear(),ttime.GetMonth(),ttime.GetDay(),ttime.GetMinute(),ttime.GetMinute(),ttime.GetSecond());
+		CString  video_outname;
 		video_outname=strDate;
 
 		cout<<"开始捕获"<<gCStringToString(video_device_id)<<endl;
 
 		ds_capture_->Create(m_vCameraid[1], video_fmt, video_outname);
 		ds_capture_->AdjustVideoWindow((OAHWND)pWnd->GetSafeHwnd(), rc.right, rc.bottom,video_device_id);
+		
 		ds_capture_->StartVideo(video_device_id);
+		
 		(CButton *)GetDlgItem(IDC_STARTRECORDONE)->EnableWindow(FALSE);
 	}
+	*/
 }
 
 
 void CRecordCameraDlg::OnBnClickedStoprecordtwo()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	if(m_vCamera.size()>0)
-	{
-		ds_capture_->StopVideo(m_vCameraid[1]);
-		(CButton *)GetDlgItem(IDC_STARTRECORDONE)->EnableWindow(TRUE);
-	}
+// 	if(m_vCamera.size()>1)
+// 	{
+// 		ds_capture_->StopVideo(m_vCameraid[1]);
+// 		(CButton *)GetDlgItem(IDC_STARTRECORDONE)->EnableWindow(TRUE);
+// 	}
 }

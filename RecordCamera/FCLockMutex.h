@@ -20,6 +20,20 @@ private:
 
 	CLASS_COPY_AND_ASSIGN(FCLockMutex);
 };
+class FCAutoLock {
+public:
+    explicit FCAutoLock(FCLockMutex& lock) : lock_(lock) {
+        lock_.acquireMutex();
+    }
+
+    ~FCAutoLock() {
+        lock_.releaseMutex();
+    }
+
+private:
+    FCLockMutex& lock_;
+    CLASS_COPY_AND_ASSIGN(FCAutoLock);
+};
 //
 // Lock辅助类
 // 构造函数-释放锁

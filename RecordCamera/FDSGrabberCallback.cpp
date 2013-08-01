@@ -53,7 +53,7 @@ STDMETHODIMP FDSGrabberCallback::BufferCB(double dblSampleTime, BYTE *pBuffer, l
 	}
 
 	//semaphore_.Wait();
-	EmrysTool::FCAutoUnlock al(lock_);
+	EmrysTool::FCAutoLock al(lock_);
 
 	timestamp_ = ::GetTickCount();
 
@@ -101,7 +101,7 @@ bool FDSGrabberCallback::IsBufferAvailable()
 
 char* FDSGrabberCallback::GetBuffer()
 {
-	EmrysTool::FCAutoUnlock al(lock_);
+	EmrysTool::FCAutoLock al(lock_);
 
 	char* buf = NULL;
 	if (BufferSize())

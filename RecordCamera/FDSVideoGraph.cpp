@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "FDSVideoGraph.h"
-#include <mtype.h>
-
+#include "./DirectshowInterface/mtype.h"
 FDSVideoGraph::FDSVideoGraph()
 {
 

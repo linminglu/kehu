@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "FDSCaptureManager.h"
+#include "FDCapture.h"
 #include <vector>
 using namespace std;
 // CRecordCameraDlg ¶Ô»°¿ò
@@ -32,7 +32,7 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 private:
-	 FDSCaptureManager* ds_capture_;
+	 FDSCapture* ds_capture_;
 	 vector<CString>m_vCamera;
 	 vector<CString>m_vCameraid;
 public:
@@ -40,4 +40,5 @@ public:
 	afx_msg void OnBnClickedStoprecordone();
 	afx_msg void OnBnClickedStartrecordtwo();
 	afx_msg void OnBnClickedStoprecordtwo();
+	 std::vector<CString> video_device_index_;
 };

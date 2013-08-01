@@ -87,6 +87,9 @@
     <ClInclude Include="FDSCaptureManager.h">
       <Filter>Interface\DDShow</Filter>
     </ClInclude>
+    <ClInclude Include="FDCapture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RecordCamera.cpp">
@@ -133,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="FDSCaptureManager.cpp">
       <Filter>Interface\DDShow</Filter>
+    </ClCompile>
+    <ClCompile Include="FDCapture.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

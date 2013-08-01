@@ -34,6 +34,9 @@
 #include <afxcontrolbars.h>     // 功能区和控件条的 MFC 支持
 
 
+
+#include <DShow.h>
+
 #pragma include_alias( "dxtrans.h", "qedit.h" )
 #define __IDxtCompositor_INTERFACE_DEFINED__
 #define __IDxtAlphaSetter_INTERFACE_DEFINED__
@@ -41,8 +44,9 @@
 #define __IDxtKey_INTERFACE_DEFINED__
 #include "qedit.h"
 
-
-
+#define SAFE_DELETE(p)       { if(p) { delete (p);     (p)=NULL; } }
+#define SAFE_DELETE_ARRAY(p) { if(p) { delete[] (p);   (p)=NULL; } }
+#define SAFE_RELEASE(p)      { if(p) { (p)->Release(); (p)=NULL; } }
 
 
 #ifdef _UNICODE
@@ -54,4 +58,8 @@
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #endif
 #endif
+
+extern bool gVideoBegin;
+
+#define WM_LOG_MSG WM_USER + 2
 

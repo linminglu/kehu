@@ -14,9 +14,9 @@ namespace EmrysTool {
 	}
 
 	FConditionVariable::~FConditionVariable() {
-		FCAutoUnlock auto_lock(internal_lock_);
+		FCAutoLock auto_lock(internal_lock_);
 		run_state_ = SHUTDOWN;  
-		if (recycling_list_size_ != allocation_counter_) {  
+		if (recycling_list_size_ != allocation_counter_)			{  
 			FCAutoUnlock auto_unlock(internal_lock_);
 			Broadcast();  
 			Sleep(10);  
@@ -31,19 +31,19 @@ namespace EmrysTool {
 		FCEvent* waiting_event;
 		HANDLE handle;
 		{
-			FCAutoUnlock auto_lock(internal_lock_);
+			FCAutoLock auto_lock(internal_lock_);
 			if (RUNNING != run_state_) return; 
 			waiting_event = GetEventForWaiting();
 			handle = waiting_event->handle();
-			
+
 		}  
 
 		{
 			FCAutoUnlock unlock(user_lock_);  // Release caller's lock
 			WaitForSingleObject(handle, static_cast<DWORD>(millSeconds));
-			FCAutoUnlock auto_lock(internal_lock_);
+			FCAutoLock auto_lock(internal_lock_);
 			RecycleEvent(waiting_event);
-			
+
 		}  
 	}
 
@@ -52,11 +52,11 @@ namespace EmrysTool {
 	void FConditionVariable::Broadcast() {
 		std::stack<HANDLE> handles;  // See FAQ-question-10.
 		{
-			FCAutoUnlock auto_lock(internal_lock_);
+			FCAutoLock auto_lock(internal_lock_);
 			if (waiting_list_.IsEmpty())
 				return;
 			while (!waiting_list_.IsEmpty())
-					handles.push(waiting_list_.PopBack()->handle());
+				handles.push(waiting_list_.PopBack()->handle());
 		}  
 		while (!handles.empty()) {
 			SetEvent(handles.top());
@@ -66,7 +66,7 @@ namespace EmrysTool {
 	void FConditionVariable::Signal() {
 		HANDLE handle;
 		{
-			FCAutoUnlock auto_lock(internal_lock_);
+			FCAutoLock auto_lock(internal_lock_);
 			if (waiting_list_.IsEmpty())
 				return;  
 			handle = waiting_list_.PopBack()->handle();  // LIFO.
@@ -91,14 +91,14 @@ namespace EmrysTool {
 		return cv_event;
 	}
 
-	
+
 	void FConditionVariable::RecycleEvent(FCEvent* used_event) {
 
 		used_event->Extract();  // Possibly redundant
 		recycling_list_.PushBack(used_event);
 		recycling_list_size_++;
 	}
-	
+
 
 	FConditionVariable::FCEvent::FCEvent() : handle_(0) {
 		next_ = prev_ = this;  // Self referencing circular.
@@ -115,7 +115,7 @@ namespace EmrysTool {
 		}
 		if (0 != handle_) {
 			int ret_val = CloseHandle(handle_);
-		
+
 		}
 	}
 	void FConditionVariable::FCEvent::InitListElement() {
